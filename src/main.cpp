@@ -1,21 +1,27 @@
 #include <SFML/Graphics.hpp>
+#include <iostream>
 
-int main()
-{
-	sf::RenderWindow window( sf::VideoMode( { 200, 200 } ), "SFML works!" );
-	sf::CircleShape shape( 100.f );
-	shape.setFillColor( sf::Color::Green );
+using namespace std;
+using namespace sf;
 
-	while ( window.isOpen() )
-	{
-		while ( const std::optional event = window.pollEvent() )
-		{
-			if ( event->is<sf::Event::Closed>() )
+int main(){
+	// Game Setup
+	RenderWindow window(VideoMode( { 500, 500 } ), "Do it Fast");
+
+	window.setPosition({(1440-500)/2,(900-500)/2});
+
+	// Game Loop
+	while(window.isOpen()){
+		// Event Loop
+		while (const std::optional event = window.pollEvent()){
+			if (event->is<sf::Event::Closed>()){ // close window
 				window.close();
+			}
 		}
 
-		window.clear();
-		window.draw( shape );
+		window.clear(Color::White); // clear with a color. called every frame
+
 		window.display();
 	}
+
 }
