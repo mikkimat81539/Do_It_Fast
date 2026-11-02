@@ -10,7 +10,7 @@ int countdown(int &counter, Text &text, RenderWindow &window){
 		return 0;
 	}
 
-	text.setString("Seconds: " + to_string(counter));
+	text.setString("Seconds: " + to_string(counter)); // writing out text
 
 	window.draw(text);
 
@@ -24,7 +24,7 @@ int main(){
 	
 	// TIMER
 	Clock clock;
-	int counter = 20; // countdown from 20 seconds
+	int counter = 20; // countdown from 20 seconds -- starting point
 	
 	// TEXT
 	Font font("../assets/arial/ARIAL.TTF");
@@ -35,6 +35,8 @@ int main(){
 	// GAME LOOP
 	while (window.isOpen()){
 		float seconds = clock.getElapsedTime().asSeconds(); // elapsed time in seconds
+
+		cout << seconds << endl;
 
 		// If 1 second passes subract counter by 1 and restart clock
 		if (seconds > 1.00){
