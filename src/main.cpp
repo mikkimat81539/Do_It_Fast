@@ -10,15 +10,14 @@ using namespace sf;
 #define SCREEN_HEIGHT 500
 
 int countdown(int &counter, RenderWindow &window, Text &timerText){
-	if (counter < 1){
-		return 0;
+	while(counter > 0){
+
+		timerText.setString("Timer: " + to_string(counter));
+		window.draw(timerText);
+
+		counter--;
+		return counter;
 	}
-
-	timerText.setString("Timer: " + to_string(counter));
-	window.draw(timerText);
-
-	counter--;
-	return counter;
 }
 
 int main(){
@@ -26,10 +25,8 @@ int main(){
 	RenderWindow window(VideoMode( { SCREEN_WIDTH, SCREEN_HEIGHT } ), "Do it Fast"); // window
 	window.setPosition({(1440-SCREEN_WIDTH)/2,(900-SCREEN_HEIGHT)/2});
 
-	window.setFramerateLimit(1); // FPS
+	window.setFramerateLimit(60); // FPS
 
-	// CLOCK
-	Clock clock;
 	
 	// Black Surface
 	RectangleShape surface;
@@ -58,6 +55,7 @@ int main(){
 		
 		// DRAW
 		window.draw(surface);
+	
 		countdown(counter, window, timerText);
 
 		window.display();
