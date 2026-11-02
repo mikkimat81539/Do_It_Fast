@@ -9,6 +9,7 @@ using namespace sf;
 #define SCREEN_WIDTH 500
 #define SCREEN_HEIGHT 500
 
+// set countdown timer
 int countdown(int &counter, RenderWindow &window, Text &timerText){
 	if(counter < 0){
 		return 0;
@@ -18,7 +19,6 @@ int countdown(int &counter, RenderWindow &window, Text &timerText){
 	window.draw(timerText);
 
 	return counter;
-
 }
 
 int main(){
