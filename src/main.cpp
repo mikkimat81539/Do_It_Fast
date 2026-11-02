@@ -10,14 +10,15 @@ using namespace sf;
 #define SCREEN_HEIGHT 500
 
 int countdown(int &counter, RenderWindow &window, Text &timerText){
-	while(counter > 0){
-
-		timerText.setString("Timer: " + to_string(counter));
-		window.draw(timerText);
-
-		counter--;
-		return counter;
+	if(counter < 0){
+		return 0;
 	}
+
+	timerText.setString("Timer: " + to_string(counter));
+	window.draw(timerText);
+
+	return counter;
+
 }
 
 int main(){
@@ -33,17 +34,24 @@ int main(){
 	surface.setSize( Vector2f( {SCREEN_WIDTH, 75} )); // surface size
 	surface.setFillColor(Color::Black); // surface color
 
-	// TIMER
+	// CLOCK
 	int counter = 20;
+	Clock clock;
 
 	Font font("../assets/arial/ARIAL.TTF"); // define font
 	Text timerText(font); // define text
-	// timerText.setString("Timer: " + std::to_string(counter) + "");
 	timerText.setFillColor(Color::White);
 	timerText.setPosition(Vector2f{0, 75/4});
 	
 	// Game Loop
 	while(window.isOpen()){
+		float seconds = clock.getElapsedTime().asSeconds();
+
+		if (seconds > 1.00){
+			counter--;
+			clock.restart();
+		}
+
 		// Event Loop
 		while (const std::optional event = window.pollEvent()){
 			if (event->is<sf::Event::Closed>()){ // close window
