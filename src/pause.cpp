@@ -1,6 +1,8 @@
 #include <SFML/Graphics.hpp>
 #include <SFML/Window.hpp>
 #include <iostream>
+#include <chrono>
+#include <thread>
 
 using namespace std;
 using namespace sf;
@@ -34,6 +36,7 @@ Vector2f textCenter(RectangleShape &button){
 int main(){
 	// SCREEN
 	RenderWindow window(sf::VideoMode({800, 600}), "PAUSE SCREEN");
+	window.setFramerateLimit(60);
 
 	// PAUSE BUTTON RECT
 	RectangleShape pauseBtn;
@@ -51,18 +54,55 @@ int main(){
 	pauseText.setString("P");
 	pauseText.setCharacterSize(50);
 
-	int counter;
+	bool isPause = false;
 
 	// GAME LOOP
 	while (window.isOpen()){
-		// MOUSE
+		// MOUSE RECT Collision
 		if (Mouse::isButtonPressed(Mouse::Button::Left)){
-			if(pointRectCollision(Mouse::getPosition(window), pauseBtn)){
-				cout << counter << endl;
-				counter++;
+			if(pointRectCollision(Mouse::getPosition(window), pauseBtn) && !isPause){
+
+				pauseBtn.setOutlineColor(Color(20, 68, 156, 255));
+				pauseBtn.setFillColor(Color(10, 235, 255));
+				pauseText.setString("R");
+				pauseText.setCharacterSize(45);
+
+				isPause = true;
+
+				this_thread::sleep_for(chrono::milliseconds(100));
+
+			}
+
+			/*else if (pointRectCollision(Mouse::getPosition(window), pauseBtn), isPause){
+
+				pauseBtn.setOutlineColor(Color(145, 11, 1, 255));
+				pauseBtn.setFillColor(Color::Red);
+				pauseText.setString("P");
+				pauseText.setCharacterSize(50);
+
+				isPause = false;
+
+				this_thread::sleep_for(chrono::milliseconds(100));	
+			}*/
+
+		}
+
+
+		if (Mouse::isButtonPressed(Mouse::Button::Left)){
+			if (pointRectCollision(Mouse::getPosition(window), pauseBtn) && isPause){
+
+				pauseBtn.setOutlineColor(Color(145, 11, 1, 255));
+				pauseBtn.setFillColor(Color::Red);
+				pauseText.setString("P");
+				pauseText.setCharacterSize(50);
+
+				isPause = false;
+
+				this_thread::sleep_for(chrono::milliseconds(100));	
 			}
 
 		}
+
 
 		while (const std::optional event = window.pollEvent()){
 		// Close window: exit
