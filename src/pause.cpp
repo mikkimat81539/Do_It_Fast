@@ -36,7 +36,7 @@ Vector2f textCenter(RectangleShape &button){
 
 int main(){
 	// SCREEN
-	RenderWindow window(sf::VideoMode({800, 600}), "PAUSE SCREEN");
+	RenderWindow window(sf::VideoMode({350, 100}), "PAUSE SCREEN");
 	window.setFramerateLimit(60);
 
 	// PAUSE BUTTON RECT
@@ -77,6 +77,10 @@ int main(){
 		if (seconds > 1.00){	
 			stopwatch++;
 			clock.restart();
+
+			if (stopwatch > 100){
+				stopwatch = 0;
+			}
 		}
 
 		// MOUSE RECT Collision
