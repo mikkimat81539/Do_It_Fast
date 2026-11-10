@@ -69,7 +69,7 @@ int main(){
 	// GAME LOOP
 	while (window.isOpen()){
 		// TIME
-		int seconds = clock.getElapsedTime().asSeconds();
+		float seconds = clock.getElapsedTime().asSeconds();
 
 		timeText.setString("Seconds: " + to_string(stopwatch));	
 
@@ -91,6 +91,8 @@ int main(){
 				isPause = true;
 
 				this_thread::sleep_for(chrono::milliseconds(100)); // delay
+				
+				clock.stop();
 
 			}
 
@@ -120,6 +122,8 @@ int main(){
 				isPause = false;
 
 				this_thread::sleep_for(chrono::milliseconds(100)); // delay
+
+				clock.start();
 			}
 
 		}
