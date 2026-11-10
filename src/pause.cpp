@@ -7,8 +7,8 @@ using namespace sf;
 
 
 // function to detect point-rectangle collision
-bool pointRectCollision(Mouse mouse, RectangleShape rect){
-	if(mouse.getPosition().y > int(rect.getPosition().x) && mouse.getPosition.x() < int(rect.getPosition().x + rect.getSize().x) && mouse.getPosition().y > int(rect.getPosition().y) && mouse.getPosition.y() < int(rect.getPosition().y + rect.getSize().y)){
+bool pointRectCollision(Vector2i mousePos, RectangleShape rect){ 
+	if(mousePos.x > int(rect.getPosition().x) && mousePos.x < int(rect.getPosition().x + rect.getSize().x) && mousePos.y > int(rect.getPosition().y) && mousePos.y < int(rect.getPosition().y + rect.getSize().y)){
 		return true;
 	}
 
@@ -51,16 +51,16 @@ int main(){
 	pauseText.setString("P");
 	pauseText.setCharacterSize(50);
 
-	// MOUSE RECT COLLISION
-	Mouse mouse;
-	// Vector2i mouse_coor = mouse.getPosition();
-
-	if (mouse.isButtonPressed(Button::Left) && pointRectCollision(mouse, pauseBtn)){
-		cout << "COLLISION" << endl;
-	}
-
 	// GAME LOOP
 	while (window.isOpen()){
+		// MOUSE
+		if (Mouse::isButtonPressed(Mouse::Button::Left)){
+			if(pointRectCollision(Mouse::getPosition(), pauseBtn)){
+				cout << "COLLISION" << endl;
+			}
+
+		}
+
 		while (const std::optional event = window.pollEvent()){
 		// Close window: exit
 			if (event->is<sf::Event::Closed>())
