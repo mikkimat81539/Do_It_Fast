@@ -3,6 +3,7 @@
 #include <iostream>
 #include <chrono>
 #include <thread>
+#include <string>
 
 using namespace std;
 using namespace sf;
@@ -54,10 +55,30 @@ int main(){
 	pauseText.setString("P");
 	pauseText.setCharacterSize(20);
 
-	bool isPause = false;
+	bool isPause = false; // switch between pause ad resume
 
+	// TIME
+	Clock clock;
+	int stopwatch = 0;
+
+	Text timeText(font);
+	timeText.setPosition(Vector2f(80, 15));
+	timeText.setCharacterSize(40);
+	timeText.setFillColor(Color::Black);
+	
 	// GAME LOOP
 	while (window.isOpen()){
+		// TIME
+		int seconds = clock.getElapsedTime().asSeconds();
+
+		timeText.setString("Seconds: " + to_string(stopwatch));	
+
+		// increment every second	
+		if (seconds > 1.00){	
+			stopwatch++;
+			clock.restart();
+		}
+
 		// MOUSE RECT Collision
 		if (Mouse::isButtonPressed(Mouse::Button::Left)){
 			if(pointRectCollision(Mouse::getPosition(window), pauseBtn) && !isPause){
@@ -116,6 +137,8 @@ int main(){
 		// DRAW
 		window.draw(pauseBtn);
 		window.draw(pauseText);
+		window.draw(timeText);
+
 
 		window.display();
 	}
