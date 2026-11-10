@@ -5,9 +5,9 @@
 using namespace std;
 using namespace sf;
 
-
 // function to detect point-rectangle collision
-bool pointRectCollision(Vector2i mousePos, RectangleShape rect){ 
+bool pointRectCollision(Vector2i mousePos, RectangleShape &rect){ 
+
 	if(mousePos.x > int(rect.getPosition().x) && mousePos.x < int(rect.getPosition().x + rect.getSize().x) && mousePos.y > int(rect.getPosition().y) && mousePos.y < int(rect.getPosition().y + rect.getSize().y)){
 		return true;
 	}
@@ -51,12 +51,15 @@ int main(){
 	pauseText.setString("P");
 	pauseText.setCharacterSize(50);
 
+	int counter;
+
 	// GAME LOOP
 	while (window.isOpen()){
 		// MOUSE
 		if (Mouse::isButtonPressed(Mouse::Button::Left)){
-			if(pointRectCollision(Mouse::getPosition(), pauseBtn)){
-				cout << "COLLISION" << endl;
+			if(pointRectCollision(Mouse::getPosition(window), pauseBtn)){
+				cout << counter << endl;
+				counter++;
 			}
 
 		}
