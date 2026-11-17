@@ -8,8 +8,8 @@
 using namespace std;
 using namespace sf;
 
-#define SCREEN_WIDTH 500
-#define SCREEN_HEIGHT 500
+#define SCREEN_WIDTH 800
+#define SCREEN_HEIGHT 300
 
 // set countdown timer
 int countdown(int &counter, RenderWindow &window, Text &timerText){
@@ -46,16 +46,16 @@ bool PointRectCollision(Vector2i mousePos, RectangleShape &rect){
 
 int main(){
 	// Game Setup
-	RenderWindow window(VideoMode( { SCREEN_WIDTH, SCREEN_HEIGHT } ), "Do it Fast"); // window
+	RenderWindow window(VideoMode( { SCREEN_WIDTH, SCREEN_HEIGHT } ), "Speed Typer"); // window
 	window.setPosition({(1440-SCREEN_WIDTH)/2,(900-SCREEN_HEIGHT)/2});
 
 	window.setFramerateLimit(60); // FPS
 
 	
 	// Black Surface
-	RectangleShape surface;
+	/*RectangleShape surface;
 	surface.setSize( Vector2f( {SCREEN_WIDTH, 75} )); // surface size
-	surface.setFillColor(Color::Black); // surface color
+	surface.setFillColor(Color::Black); // surface color*/
 
 	// CLOCK
 	int counter = 20;
@@ -63,8 +63,9 @@ int main(){
 
 	Font font("../assets/arial/ARIAL.TTF"); // define font
 	Text timerText(font); // define text
-	timerText.setFillColor(Color::White);
-	timerText.setPosition(Vector2f{355, 75/4});
+	timerText.setFillColor(Color::Black);
+	timerText.setCharacterSize(30);
+	timerText.setPosition(Vector2f{SCREEN_WIDTH/2 - float(timerText.getCharacterSize()*2), SCREEN_HEIGHT/8});
 
 	// PAUSE BUTTON RECT
 	RectangleShape pauseBtn;
@@ -125,7 +126,7 @@ int main(){
 		window.clear(Color::White); // clear with a color. called every frame
 		
 		// DRAW
-		window.draw(surface);	
+		// window.draw(surface);	
 		countdown(counter, window, timerText);
 		window.draw(pauseBtn);
 		window.draw(pauseText);	
